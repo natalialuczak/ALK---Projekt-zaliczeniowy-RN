@@ -4,23 +4,20 @@ import { useQuery } from "@tanstack/react-query";
 
 const API_URL = "https://rickandmortyapi.com/api/character";
 
-const fetchAvatar = async () => {
-  const response = await fetch(`${API_URL}/1`);
-  const data = await response.json();
-  return data.image;
-};
+const fetchAvatarAndPosts = async () => {
+  const avatarResponse = await fetch(`${API_URL}/1`);
+  const avatarData = await avatarResponse.json();
 
-const fetchPosts = async () => {
-  const response = await fetch(`${API_URL}`);
-  const data = await response.json();
-  return data.results;
+  const postsResponse = await fetch(`${API_URL}`);
+  const postsData = await postsResponse.json();
+
+  return { avatar: avatarData.image, posts: postsData.results };
 };
 
 const Profil = () => {
-  const { data: avatar, isLoading: avatarLoading, isError: avatarError } = useQuery(["avatar"], fetchAvatar);
-  const { data: posts, isLoading: postsLoading, isError: postsError } = useQuery(["posts"], fetchPosts);
+  const { data, isLoading, isError } = useQuery(["avatarAndPosts"], fetchAvatarAndPosts);
 
-  if (avatarLoading || postsLoading) {
+  if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
         <Text>Loading...</Text>
@@ -28,13 +25,15 @@ const Profil = () => {
     );
   }
 
-  if (avatarError || postsError) {
+  if (isError) {
     return (
       <View style={styles.errorContainer}>
         <Text>Coś poszło nie tak</Text>
       </View>
     );
   }
+
+  const { avatar, posts } = data;
 
   return (
     <View style={styles.container}>
@@ -142,3 +141,4 @@ const styles = StyleSheet.create({
     height: 100,
   },
 });
+
