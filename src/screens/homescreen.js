@@ -5,6 +5,8 @@ import Posts from "../../src/screens/posts";
 import Stories from "../../src/components/Stories";
 
 export default function Homescreen() {
+  const data = Posts;
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -16,9 +18,9 @@ export default function Homescreen() {
           </>
         }
         ListFooterComponent={<Posts />}
-        data={Posts}
+        data={data}
         renderItem={({ item }) => item}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(index) => index.toString()}
       />
     </SafeAreaView>
   );
