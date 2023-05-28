@@ -16,7 +16,7 @@ export default function Homescreen() {
           </>
         }
         ListFooterComponent={<Posts />}
-        data={[]}
+        data={Posts}
         renderItem={({ item }) => item}
         keyExtractor={(item, index) => index.toString()}
       />
