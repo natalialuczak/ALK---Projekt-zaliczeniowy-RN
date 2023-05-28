@@ -5,10 +5,9 @@ import Posts from "../../src/screens/posts";
 import Stories from "../../src/components/Stories";
 
 export default function Homescreen() {
-
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
+      <Posts
         style={styles.scrollContainer}
         ListHeaderComponent={
           <>
@@ -16,7 +15,6 @@ export default function Homescreen() {
             <Stories />
           </>
         }
-        ListFooterComponent={<Posts />}
       />
     </SafeAreaView>
   );

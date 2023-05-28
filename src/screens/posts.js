@@ -52,7 +52,7 @@ const PostComments = () => (
   </View>
 );
 
-const Posts = () => {
+const Posts = (props) => {
   const { data, isLoading, isError } = useQuery(["posts"], fetchPosts);
 
   if (isLoading) {
@@ -92,6 +92,7 @@ const Posts = () => {
       keyExtractor={(item) => item.id.toString()}
       renderItem={renderItem}
       contentContainerStyle={styles.flatListContainer}
+      {...props}
     />
   );
 };
